@@ -3,30 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home Page with Sidebar</title>
+<title>VIV Home Page</title>
 <style>
+/* Reset & base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
     display: flex;
+    min-height: 100vh;
+    background: #f0f2f5;
 }
+
+/* Sidebar */
 .sidebar {
-    width: 200px;
-    background: #333;
+    width: 220px;
+    background: #2c3e50;
     color: white;
     padding: 20px;
-    height: 100vh;
+    flex-shrink: 0;
+}
+.sidebar h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
 }
 .sidebar a {
     display: block;
     color: white;
     text-decoration: none;
-    margin: 10px 0;
+    margin: 12px 0;
+    padding: 8px 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
 }
+.sidebar a:hover {
+    background: #34495e;
+}
+
+/* Content area */
 .content {
     flex: 1;
-    padding: 50px;
-    background: #f0f0f0;
+    padding: 40px;
+}
+.content h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+.content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+/* Grid sections */
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+.column {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+.column:hover {
+    transform: translateY(-5px);
+}
+.column h2 {
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+.column p {
+    color: #555;
+}
+
+/* Responsive for smaller screens */
+@media(max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+    }
 }
 </style>
 </head>
@@ -35,12 +100,28 @@ body {
         <h2>Menu</h2>
         <a href="#">Home</a>
         <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Portfolio</a>
         <a href="#">Contact</a>
     </div>
     <div class="content">
-        <h1>Welcome to VIV page</h1>
-        <p>let's see what I can do</p>
+        <h1>Welcome to VIV Page</h1>
+        <p>Explore the sections below and see what we can do!</p>
+
+        <div class="content-grid">
+            <div class="column">
+                <h2>Section 1</h2>
+                <p>This is some sample content for the first section.</p>
+            </div>
+            <div class="column">
+                <h2>Section 2</h2>
+                <p>This is some sample content for the second section.</p>
+            </div>
+            <div class="column">
+                <h2>Section 3</h2>
+                <p>This is some sample content for the third section.</p>
+            </div>
+        </div>
     </div>
 </body>
 </html>
-
