@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>VIV88</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         /* CSS Reset */
@@ -42,70 +43,17 @@
             padding: 0 20px;
         }
 
-        
-header {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    padding: 10px 0; /* padding dikurangi dari 20px ke 10px */
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 1.4rem; /* ukuran font dikurangi dari 1.8rem */
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-}
-
-.logo i {
-    margin-right: 8px; /* margin dikurangi */
-    color: var(--accent);
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-}
-
-.nav-links li {
-    margin-left: 20px; /* jarak dikurangi dari 30px */
-}
-
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s;
-    font-size: 0.9rem; /* font size sedikit diperkecil */
-}
-
-.nav-links a:hover {
-    color: var(--accent);
-}
-
-.btn {
-    display: inline-block;
-    background: var(--accent);
-    color: white;
-    padding: 8px 20px; /* padding dikurangi */
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s;
-    border: none;
-    cursor: pointer;
-    font-size: 0.
-
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
 
         nav {
             display: flex;
@@ -114,14 +62,14 @@ nav {
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             font-weight: 700;
             display: flex;
             align-items: center;
         }
 
         .logo i {
-            margin-right: 10px;
+            margin-right: 8px;
             color: var(--accent);
         }
 
@@ -131,7 +79,7 @@ nav {
         }
 
         .nav-links li {
-            margin-left: 30px;
+            margin-left: 20px;
         }
 
         .nav-links a {
@@ -139,6 +87,7 @@ nav {
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
+            font-size: 0.9rem;
         }
 
         .nav-links a:hover {
@@ -149,13 +98,14 @@ nav {
             display: inline-block;
             background: var(--accent);
             color: white;
-            padding: 12px 24px;
+            padding: 8px 20px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
             border: none;
             cursor: pointer;
+            font-size: 0.9rem;
         }
 
         .btn:hover {
@@ -354,8 +304,7 @@ nav {
         /* Hero Section */
         .hero {
             padding: 100px 0;
-            background: linear-gradient(rgba(67, 97, 238, 0.9), rgba(58, 12, 163, 0.9)),
-                url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3') no-repeat center center/cover;
+            background: linear-gradient(rgba(67, 97, 238, 0.9), rgba(58, 12, 163, 0.9)), url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3') no-repeat center center/cover;
             color: white;
             text-align: center;
         }
@@ -563,15 +512,15 @@ nav {
                 transform: translateX(-100%);
                 width: 230px;
             }
-
+            
             .sidebar.open {
                 transform: translateX(0);
             }
-
+            
             .main-content {
                 margin-left: 0;
             }
-
+            
             .toggle-btn {
                 display: flex;
             }
@@ -603,67 +552,67 @@ nav {
         <div class="sidebar-header">
             <h2><i class="fas fa-rocket"></i> VIV88</h2>
         </div>
-
+        
         <div class="sidebar-menu">
             <div class="menu-label">Menu Utama</div>
             <a href="#" class="menu-item active">
                 <i class="fas fa-home"></i>
                 <span>Dashboard</span>
             </a>
-
+            
             <a href="#" class="menu-item">
                 <i class="fas fa-chart-bar"></i>
                 <span>Analytics</span>
                 <span class="badge">3</span>
             </a>
-
+            
             <a href="#" class="menu-item" id="messagesMenu">
                 <i class="fas fa-envelope"></i>
                 <span>Messages</span>
                 <span class="badge">5</span>
             </a>
-
+            
             <div class="submenu" id="messagesSubmenu">
                 <a href="#" class="submenu-item">Inbox</a>
                 <a href="#" class="submenu-item">Sent</a>
                 <a href="#" class="submenu-item">Drafts</a>
                 <a href="#" class="submenu-item">Archived</a>
             </div>
-
+            
             <a href="#" class="menu-item">
                 <i class="fas fa-calendar"></i>
                 <span>Calendar</span>
             </a>
-
+            
             <div class="menu-label">Konten</div>
             <a href="#" class="menu-item">
                 <i class="fas fa-file"></i>
                 <span>Pages</span>
             </a>
-
+            
             <a href="#" class="menu-item">
                 <i class="fas fa-image"></i>
                 <span>Media</span>
             </a>
-
+            
             <a href="#" class="menu-item">
                 <i class="fas fa-comments"></i>
                 <span>Comments</span>
                 <span class="badge">12</span>
             </a>
-
+            
             <div class="menu-label">Pengaturan</div>
             <a href="#" class="menu-item">
                 <i class="fas fa-cog"></i>
                 <span>Settings</span>
             </a>
-
+            
             <a href="#" class="menu-item">
                 <i class="fas fa-question-circle"></i>
                 <span>Help & Support</span>
             </a>
         </div>
-
+        
         <div class="sidebar-footer">
             <div class="user-info">
                 <div class="user-details">
@@ -674,7 +623,8 @@ nav {
         </div>
     </div>
 
-    <div class="main-content">
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
         <header>
             <div class="container">
                 <nav>
@@ -684,56 +634,4 @@ nav {
                     </div>
                     <ul class="nav-links">
                         <li><a href="#">Home</a></li>
-                        <li><a href="#">Tentang</a></li>
-                        <li><a href="#">Layanan</a></li>
-                        <li><a href="about.html">Mybio</a></li>
-                        <li><a href="#">WhatsApp</a></li>
-                    </ul>
-                    <a href="#" class="btn">Mulai Sekarang</a>
-                </nav>
-            </div>
-        </header>
-        <section class="hero">
-            <div class="container">
-                <h1>Mau Seperti apa. Ask VIV88?</h1>
-                <p>Blazing Fast Websites: A Complete Guide to Web Performance Optimization VIV</p>
-                <a href="#" class="btn">Pelajari Lebih Lanjut <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </section>
-
-        <!-- Fitur Section -->
-        <section class="features">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Fitur Unggulan</h2>
-                    <p>Kami menyediakan berbagai fitur yang akan membantu bisnis Anda berkembang pesat di era digital ini.</p>
-                </div>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <i class="fas fa-lightbulb"></i>
-                        <h3>Inovatif</h3>
-                        <p>Solusi terkini dengan teknologi mutakhir untuk bisnis Anda.</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-cogs"></i>
-                        <h3>Terintegrasi</h3>
-                        <p>Sistem yang terintegrasi untuk mengelola semua kebutuhan bisnis.</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-shield-alt"></i>
-                        <h3>Aman</h3>
-                        <p>Keamanan data terjamin dengan sistem enkripsi terkini.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimoni Section -->
-        <section class="testimonials">
-            <div class="container">
-                <div class="section-title">
-                  
-
-
-
-
+                        <li><a href="#">Tentang</a></
