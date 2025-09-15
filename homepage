@@ -582,7 +582,10 @@
             <div class="testimonial-card animated">
                 <p class="testimonial-text">"Website yang dibuat oleh tim ini sangat profesional dan hasilnya beyond expectations. Traffic website saya meningkat drastis!"</p>
                 <div class="testimonial
-
+mkdir homepage
+git mv index.html homepage/index.html
+git commit -m "Move index.html to /homepage/index.html for clean URL"
+git push origin main
 
 
 
