@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>VIV88</title>
+    <title>VIV88 - Platform Digital Terdepan</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -127,6 +127,8 @@
             transition: all 0.3s ease;
             z-index: 1000;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
         }
 
         .sidebar-header {
@@ -150,6 +152,7 @@
 
         .sidebar-menu {
             padding: 15px 0;
+            flex: 1;
         }
 
         .menu-label {
@@ -219,22 +222,11 @@
             color: white;
         }
 
-        .sidebar {
-    display: flex;
-    flex-direction: column;
-    height: 100vh; /* full height sidebar */
-    background: #2c3e50;
-    color: white;
-    padding: 20px;
-}
-
-.sidebar-footer {
-    margin-top: auto; /* dorong ke bawah */
-    padding: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
-}
-
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.1);
+        }
 
         .user-info {
             display: flex;
@@ -382,6 +374,71 @@
         .feature-card h3 {
             margin-bottom: 15px;
             font-size: 1.5rem;
+        }
+
+        /* Content List Styles */
+        .content-section {
+            padding: 60px 0;
+        }
+
+        .content-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .content-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .content-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .content-img {
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .content-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .content-item:hover .content-img img {
+            transform: scale(1.05);
+        }
+
+        .content-details {
+            padding: 20px;
+        }
+
+        .content-details h3 {
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .content-details p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .content-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding-top: 15px;
         }
 
         /* Testimoni Section */
@@ -546,6 +603,10 @@
             .hero p {
                 font-size: 1rem;
             }
+            
+            .content-list {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -588,61 +649,3 @@
             </div>
             
             <a href="#" class="menu-item">
-                <i class="fas fa-calendar"></i>
-                <span>Calendar</span>
-            </a>
-            
-            <div class="menu-label">Konten</div>
-            <a href="#" class="menu-item">
-                <i class="fas fa-file"></i>
-                <span>Pages</span>
-            </a>
-            
-            <a href="#" class="menu-item">
-                <i class="fas fa-image"></i>
-                <span>Media</span>
-            </a>
-            
-            <a href="#" class="menu-item">
-                <i class="fas fa-comments"></i>
-                <span>Comments</span>
-                <span class="badge">12</span>
-            </a>
-            
-            <div class="menu-label">Pengaturan</div>
-            <a href="#" class="menu-item">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
-            </a>
-            
-            <a href="#" class="menu-item">
-                <i class="fas fa-question-circle"></i>
-                <span>Help & Support</span>
-            </a>
-        </div>
-        
-        <div class="sidebar-footer">
-            <div class="user-info">
-                <div class="user-details">
-                    <div class="user-name">AFIF</div>
-                </div>
-                <a href="#" style="color: white;"><i class="fas fa-sign-out-alt"></i></a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="main-content" id="mainContent">
-        <header>
-            <div class="container">
-                <nav>
-                    <div class="logo">
-                        <i class="fas fa-rocket"></i>
-                        <span>VIV88</span>
-                    </div>
-                    <ul class="nav-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Tentang</a></
-
-
-
