@@ -1,3 +1,24 @@
+<table id="myTable" border="1"></table>
+
+<script>
+fetch("artikel1.csv")
+  .then(res => res.text())
+  .then(text => {
+    let rows = text.split("\n");
+    let table = document.getElementById("myTable");
+    rows.forEach(row => {
+      let tr = document.createElement("tr");
+      row.split(",").forEach(cell => {
+        let td = document.createElement("td");
+        td.textContent = cell;
+        tr.appendChild(td);
+      });
+      table.appendChild(tr);
+    });
+  });
+</script>
+
+
 url,judul,konten
 https://jigolokayitolun.xyz/mikel-merino-striker-permanen-arsenal/,"Cetak Gol Lagi, Mikel Merino Bikin Arteta Kepikiran",Tidak ada konten
 https://jigolokayitolun.xyz/update-demo-dpr-terkini-indonesia-v1-jigolo/,Update Demo DPR Terkini Indonesia v1 Jigolo Amanah Betrayal of Trust is Undeniable,Tidak ada konten
@@ -37,3 +58,4 @@ https://jigolokayitolun.xyz/diusir-hotel-indonesia-pekalongan/,Diusir!! Hotel in
 https://jigolokayitolun.xyz/page/2/,Jigoloka,Tidak ada konten
 https://jigolokayitolun.xyz/napol/,Kategori: Nasional & Politik,Tidak ada konten
 https://jigolokayitolun.xyz/esports-indonesia-olahraga-tradisional/,Olahraga Tradisional atau Esports Indonesia Masa Depan?,Tidak ada konten
+
