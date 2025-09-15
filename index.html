@@ -219,14 +219,22 @@
             color: white;
         }
 
-        .sidebar-footer {
-            padding: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.1);
-        }
+        .sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* full height sidebar */
+    background: #2c3e50;
+    color: white;
+    padding: 20px;
+}
+
+.sidebar-footer {
+    margin-top: auto; /* dorong ke bawah */
+    padding: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.1);
+}
+
 
         .user-info {
             display: flex;
@@ -635,3 +643,4 @@
                     <ul class="nav-links">
                         <li><a href="#">Home</a></li>
                         <li><a href="#">Tentang</a></
+
