@@ -1,589 +1,186 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RTP Character Cards - Modern Design</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #6c63ff;
-            --secondary: #ff6584;
-            --dark: #2a2a72;
-            --light: #f8f9fa;
-            --gradient: linear-gradient(45deg, var(--primary), var(--secondary));
-            --card-bg: #ffffff;
-            --text-dark: #333333;
-            --text-light: #777777;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            --radius: 16px;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MLBB Hero Cards – Modern Animation</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <style>
+    :root {
+      --primary: #ffb238;
+      --secondary: #ff6b6b;
+      --dark: #2e2e3e;
+      --light: #f0f0f5;
+      --radius: 16px;
+      --shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      --card-bg: #ffffff;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    /* Background gradient animasi */
+    body {
+      margin: 0;
+      padding: 40px;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #ff9a9e);
+      background-size: 400% 400%;
+      animation: bgShift 12s ease infinite;
+      color: var(--dark);
+    }
 
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: var(--text-dark);
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
+    @keyframes bgShift {
+      0% { background-position: 0 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0 50%; }
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      perspective: 1000px;
+    }
 
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
 
-        h1 {
-            font-size: 2.8rem;
-            margin-bottom: 15px;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
-        }
+    /* Efek 3D tilt via VanillaTilt */
+    .card[data-tilt] {
+      will-change: transform;
+    }
 
-        .subtitle {
-            font-size: 1.2rem;
-            color: var(--text-light);
-            max-width: 600px;
-            margin: 0 auto;
-        }
+    .card:hover {
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
+    }
 
-        .cards-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
+    .card-header {
+      position: relative;
+      padding: 30px 20px;
+      background: var(--primary);
+      overflow: hidden;
+    }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            position: relative;
-        }
+    /* Partikel halus di header */
+    .card-header::after {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.15), transparent 70%);
+      animation: spin 8s linear infinite;
+    }
 
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
 
-        .card-header {
-            background: var(--gradient);
-            padding: 25px 20px;
-            text-align: center;
-            position: relative;
-        }
+    .card-image {
+      display: block;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      object-fit: cover;
+      position: relative;
+      z-index: 1;
+    }
 
-        .card-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-        }
+    .card-body {
+      padding: 25px 20px;
+      text-align: center;
+    }
 
-        .card-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 4px solid white;
-            object-fit: cover;
-            margin: 0 auto;
-            display: block;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
+    .card-title {
+      margin: 10px 0;
+      font-size: 1.4rem;
+      color: var(--dark);
+    }
 
-        .card-body {
-            padding: 25px;
-        }
+    .card-desc {
+      font-size: 0.95rem;
+      color: var(--light);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
 
-        .card-title {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            text-align: center;
-            color: var(--dark);
-        }
+    .stats {
+      text-align: left;
+      margin-bottom: 20px;
+    }
 
-        .card-desc {
-            color: var(--text-light);
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
+    .stat {
+      margin-bottom: 12px;
+    }
 
-        .stats {
-            margin-bottom: 25px;
-        }
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
 
-        .stat {
-            margin-bottom: 15px;
-        }
+    .stat-bar {
+      background: #eee;
+      border-radius: 8px;
+      height: 8px;
+      overflow: hidden;
+    }
 
-        .stat-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
+    .stat-fill {
+      height: 100%;
+      border-radius: 8px;
+      width: 0;
+      transition: width 1s ease-out;
+    }
 
-        .stat-name {
-            font-weight: 600;
-            color: var(--text-dark);
-        }
+    .stat-fill.attack { background: var(--primary); }
+    .stat-fill.defense { background: var(--secondary); }
 
-        .stat-value {
-            font-weight: 700;
-            color: var(--primary);
-        }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 20px;
+      border-top: 1px solid #f0f0f0;
+    }
 
-        .stat-bar {
-            background: #e9ecef;
-            border-radius: 10px;
-            height: 10px;
-            overflow: hidden;
-        }
+    .btn {
+      flex: 1;
+      margin: 0 5px;
+      padding: 10px 0;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .stat-fill {
-            height: 100%;
-            border-radius: 10px;
-            position: relative;
-            transition: width 1s ease-in-out;
-        }
+    .btn-info {
+      background: transparent;
+      color: var(--dark);
+      border: 1px solid #ddd;
+    }
 
-        .stat-fill.attack {
-            background: var(--primary);
-        }
+    .btn-select {
+      background: var(--secondary);
+      color: #fff;
+    }
 
-        .stat-fill.defense {
-            background: var(--secondary);
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            border-top: 1px solid #eee;
-            padding-top: 20px;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #5a52e0;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-light);
-            border: 1px solid #ddd;
-        }
-
-        .btn-secondary:hover {
-            background: #f8f9fa;
-            transform: translateY(-2px);
-        }
-
-        .btn i {
-            margin-right: 8px;
-        }
-
-        .animated {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
-        .delay-4 { animation-delay: 0.8s; }
-        .delay-5 { animation-delay: 1s; }
-
-        @media (max-width: 768px) {
-            .cards-container {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 20px;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-        }
-
-        /* Particle effect for card header */
-        .card-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' width='80' height='80'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M14,16 L20,10 L14,4 L8,10 L14,16 Z M64,16 L70,10 L64,4 L58,10 L64,16 Z M14,66 L20,60 L14,54 L8,60 L14,66 Z M64,66 L70,60 L64,54 L58,60 L64,66 Z M39,6 L45,0 L39,-6 L33,0 L39,6 Z M39,76 L45,70 L39,64 L33,70 L39,76 Z'%3E%3C/path%3E%3C/svg%3E");
-            opacity: 0.1;
-        }
-    </style>
+    .btn i { margin-right: 6px; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>RTP Character Collection</h1>
-            <p class="subtitle">Kumpulan karakter dengan statistik Attack dan Defense yang unik. Pilih karakter favoritmu!</p>
-        </header>
-
-        <div class="cards-container">
-            <!-- Card 1 -->
-            <div class="card animated">
-                <div class="card-header">
-                    <span class="card-badge">Legendary</span>
-                    <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=200&q=80" alt="RTP Alpha" class="card-image">
-                </div>
-                <div class="card-body">
-                    <h3 class="card-title">RTP Alpha</h3>
-                    <p class="card-desc">Karakter dengan kemampuan serangan tinggi namun pertahanan rendah. Cocok untuk strategi offensive.</p>
-                    
-                    <div class="stats">
-                        <div class="stat">
-                            <div class="stat-header">
-                                <span class="stat-name">Attack Power</span>
-                                <span class="stat-value">70%</span>
-                            </div>
-                            <div class="stat-bar">
-                                <div class="stat-fill attack" style="width: 70%;"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat">
-                            <div class="stat-header">
-                                <span class="stat-name">Defense Power</span>
-                                <span class="stat-value">20%</span>
-                            </div>
-                            <div class="stat-bar">
-                                <div class="stat-fill defense" style="width: 20%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card-footer">
-                        <button class="btn btn-secondary"><i class="fas fa-info-circle"></i> Details</button>
-                        <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Select</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="card animated delay-1">
-                <div class="card-header">
-                    <span class="card-badge">Epic</span>
-                    <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="RTP Beta" class="card-image">
-                </div>
-                <div class="card-body">
-                    <h3 class="card-title">RTP Beta</h3>
-                    <p class="card-desc">Karakter dengan keseimbangan antara attack dan defense. Pilihan serbaguna untuk berbagai situasi.</p>
-                    
-                    <div class="stats">
-                        <div class="stat">
-                            <div class="stat-header">
-                                <span class="stat-name">Attack Power</span>
-                                <span class="stat-value">60%</span>
-                            </div>
-                            <div class="stat-bar">
-                                <div class="stat-fill attack" style="width: 60%;"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat">
-                            <div class="stat-header">
-                                <span class="stat-name">Defense Power</span>
-                                <span class="stat-value">40%</span>
-                            </div>
-                            <div class="stat-bar">
-                                <div class="stat-fill defense" style="width: 40%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card-footer">
-                        <button class="btn btn-secondary"><i class="fas fa-info-circle"></i> Details</button>
-                        <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Select</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="card animated delay-2">
-                <div class="card-header">
-                    <span class="card-badge">Legendary</span>
-                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=200&q=80" alt="RTP Gamma" class="card-image">
-                </div>
-                <div class="card-body">
-                    <h3 class="card-title">RTP Gamma</h3>
-                    <p class="card-desc">Spesialis serangan dengan kemampuan menghancurkan pertahanan musuh dalam waktu singkat.</p>
-                    
-                    <div class="stats">
-                        <div class="stat">
-                            <div class="stat-header">
-                                <span class="stat-name">Attack Power</span>
-                                <span class="stat-value">80%</span>
-                            </div>
-                            <div class="stat-bar">
-                                <div class="stat-fill attack" style="width: 80%;"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat">
-                            <div class="stat-header">
-                                <span class="stat-name">Defense Power</span>
-                                <span class="stat-value">30%</span>
-                            </div>
-                            <div class="stat-bar">
-                                <div class="stat-fill defense" style="width: 30%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card-footer">
-                        <button class="btn btn-secondary"><i class="fas fa-info-circle"></i> Details</button>
-                        <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Select</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="card animated delay-3">
-                <div class="card-header">
-                    <span class="card-badge">Rare</span>
-                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=200&q=80" alt="RTP Delta" class="card-image">
-                </div>
-                <div class="card-body">
-                    <h3 class="card-title">RTP Delta</h3>
-                    <p class="card-desc">Karakter defensif dengan kemampuan bertahan yang kuat, cocok untuk strategi bertahan.</p>
-                    
-                    <div class="stats">
-                        <div class="stat">
-                            <div class="stat-header">
-                                <span class="stat-name">Attack Power</span>
-                                <span class="stat-value">50%</span>
-                            </div>
-                            <div class="stat-bar">
-                                <div class="stat-fill attack" style="width: 50%;"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat">
-                            <div class="stat-header">
-                                <span class="stat-name">Defense Power</span>
-                                <span class="stat-value">60%</span>
-                            </div>
-                            <div class="stat-bar">
-                                <div class="stat-fill defense" style="width: 60%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card-footer">
-                        <button class="btn btn-secondary"><i class="fas fa-info-circle"></i> Details</button>
-                        <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Select</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 5 -->
-            <div class="card animated delay-4">
-                <div class="card-header">
-                    <span class="card-badge">Mythic</span>
-                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="RTP IQRA" class="card-image">
-                </div>
-                <div class="card-body">
-                    <h3 class="card-title">RTP Epsilon</h3>
-                    <p class="card-desc">Penyerang murni dengan damage tertinggi namun sangat rentan terhadap serangan balik.</p>
-                    
-                    <div class="stats">
-                        <div class="stat">
-                            <div class="stat-header">
-                                <span class="stat-name">Attack Power</span>
-                                <span class="stat-value">90%</span>
-                            </div>
-                            <div class="stat-bar">
-                                <div class="stat-fill attack" style="width: 90%;"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat">
-                            <div class="stat-header">
-                                <span class="stat-name">Defense Power</span>
-                                <span class="stat-value">10%</span>
-                            </div>
-                            <div class="stat-bar">
-                                <div class="stat-fill defense" style="width: 10%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card-footer">
-                        <button class="btn btn-secondary"><i class="fas fa-info-circle"></i> Details</button>
-                        <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Select</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 6 - New -->
-            <div class="card animated delay-5">
-                <div class="card-header">
-                    <span class="card-badge">Ultimate</span>
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="RTP ~PTR" class="card-image">
-                </div>
-                <div class="card-body">
-                    <h3 class="card-title">RTP Zeta</h3>
-                    <p class="card-desc">Karakter seimbang sempurna dengan kemampuan khusus untuk beradaptasi dengan situasi apa pun.</p>
-                    
-                    <div class="stats">
-                        <div class="stat">
-                            <div class="stat-header">
-                                <span class="stat-name">Attack Power</span>
-                                <span class="stat-value">75%</span>
-                            </div>
-                            <div class="stat-bar">
-                                <div class="stat-fill attack" style="width: 75%;"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat">
-                            <div class="stat-header">
-                                <span class="stat-name">Defense Power</span>
-                                <span class="stat-value">65%</span>
-                            </div>
-                            <div class="stat-bar">
-                                <div class="stat-fill defense" style="width: 65%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card-footer">
-                        <button class="btn btn-secondary"><i class="fas fa-info-circle"></i> Details</button>
-                        <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Select</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Animasi progress bars saat halaman dimuat
-        document.addEventListener('DOMContentLoaded', function() {
-            const statFills = document.querySelectorAll('.stat-fill');
-            statFills.forEach(fill => {
-                const width = fill.style.width;
-                fill.style.width = '0';
-                setTimeout(() => {
-                    fill.style.width = width;
-                }, 500);
-            });
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RTP Cards</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
-    padding: 20px;
-  }
-  .cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-  }
-  .card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    text-align: center;
-  }
-  .card img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
-    border: 3px solid #6c63ff;
-  }
-  .card h3 {
-    margin-bottom: 10px;
-    color: #2a2a72;
-  }
-  .stat {
-    margin: 10px 0;
-  }
-  .stat-name {
-    font-size: 0.9rem;
-    display: block;
-    margin-bottom: 5px;
-  }
-  .stat-bar {
-    background: #ddd;
-    border-radius: 10px;
-    height: 10px;
-    width: 100%;
-    overflow: hidden;
-  }
-  .stat-fill.attack { background: #6c63ff; height: 10px; width: 70%; }
-  .stat-fill.defense { background: #ff6584; height: 10px; width: 20%; }
-</style>
-</head>
-<body>
-
-
-    </div>
-  </div>
-
-</div>
-
-</body>
-</html>
