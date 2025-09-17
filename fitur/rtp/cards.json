@@ -1,22 +1,45 @@
 [
-  {"name":"Miya","img":"https://example.com/miya.png","attack":85,"defense":30},
-  {"name":"Layla","img":"https://example.com/layla.png","attack":78,"defense":40},
-  {"name":"Kagura","img":"https://example.com/kagura.png","attack":72,"defense":50},
-  {"name":"Eudora","img":"https://example.com/eudora.png","attack":88,"defense":25},
-  {"name":"Odette","img":"https://example.com/odette.png","attack":80,"defense":35},
-  {"name":"Alice","img":"https://example.com/alice.png","attack":75,"defense":45},
-  {"name":"Irithel","img":"https://example.com/irithel.png","attack":82,"defense":38},
-  {"name":"Hanabi","img":"https://example.com/hanabi.png","attack":79,"defense":42},
-  {"name":"Kimmy","img":"https://example.com/kimmy.png","attack":77,"defense":43},
-  {"name":"Wanwan","img":"https://example.com/wanwan.png","attack":83,"defense":37},
-  {"name":"LoLita","img":"https://example.com/lolita.png","attack":68,"defense":55},
-  {"name":"Angela","img":"https://example.com/angela.png","attack":65,"defense":60},
-  {"name":"Claude","img":"https://example.com/claude.png","attack":84,"defense":34},
-  {"name":"Bruno","img":"https://example.com/bruno.png","attack":86,"defense":32},
-  {"name":"Granger","img":"https://example.com/granger.png","attack":90,"defense":28},
-  {"name":"Popol","img":"https://example.com/popol.png","attack":70,"defense":50},
-  {"name":"Lolita","img":"https://example.com/lolita2.png","attack":69,"defense":54},
-  {"name":"Fanny","img":"https://example.com/fanny.png","attack":92,"defense":20},
-  {"name":"Gusion","img":"https://example.com/gusion.png","attack":91,"defense":22},
-  {"name":"Lancelot","img":"https://example.com/lancelot.png","attack":89,"defense":27},
-  {"name":"Hayabusa","img":"https://example.com/hayabusa.png","attack":88,"defense":29
+  {
+    "name": "Miya",
+    "img": "https://image.idntimes.com/post/20231116/magen-43da29a867d49c1f351ac6b665d26419-8b699ca9f9bc18a10d978836de60dfa2.jpg?tr=w-1200,f-webp,q-75&width=1200&format=webp&quality=75",
+    "attack": 85,
+    "defense": 30,
+    "type": "Marksman",
+    "power": 1600
+  },
+  {
+    "name": "Layla",
+    "img": "https://static.upoint.id/images/news/17332000095_item_terbaik_counter_layla_di_mobile_legends.webp",
+    "attack": 78,
+    "defense": 40,
+    "type": "Marksman",
+    "power": 1700
+  },
+  {
+    "name": "Hylos",
+    "img": "https://dailyspin.id/wp-content/uploads/2022/05/5D47F9AA-DDC4-489F-8806-59394F7DB9A6.jpeg",
+    "attack": 70,
+    "defense": 55,
+    "type": "Tank",
+    "power": 1850
+  },
+  {
+    "name": "Wanwan",
+    "img": "https://d1tgyzt3mf06m9.cloudfront.net/v3-staging/2021/12/wanwan-e-girl-mlbb-skin-4k-wallpaper-3840x2160-uhdpaper-com-706-0-bc3d00a50-e6de-48b1-bafc-06482d750293.jpg",
+    "attack": 86,
+    "defense": 34,
+    "type": "Marksman",
+    "power": 1950
+  },
+  {
+    "name": "Karmila",
+    "img": "https://d1tgyzt3mf06m9.cloudfront.net/v3-staging/2020/01/89891a9dc5aaf11021614fe6825ec344.jpg",
+    "attack": 78,
+    "defense": 42,
+    "type": "Support",
+    "power": 2000
+  }
+
+  
+  
+]

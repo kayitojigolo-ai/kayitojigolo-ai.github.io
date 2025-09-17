@@ -1,190 +1,540 @@
-<!doctype html>
-<html ⚡ lang="id">
-<head>
-  <meta charset="utf-8" />
-  <title>MLBB Cards AMP</title>
-  <link rel="canonical" href="https://kayitojigolo-ai.github.io/" />
-  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
-  <meta name="description" content="Koleksi kartu MLBB dengan statistik Attack dan Defense. Tampilan modern dan responsif menggunakan AMP." />
+<!DOCTYPE html>
+ <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kartu Hero Mobile Legends - Ultimate Collection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet"><style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #ff5722;
+            --primary-dark: #e64a19;
+            --secondary: #2196f3;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --accent: #ffcc00;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: var(--light);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding: 20px;
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Particle Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(-35px) translateX(-15px); }
+            75% { transform: translateY(-15px) translateX(15px); }
+        }
+        
+        /* Search and Filters */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .search-box {
+            display: flex;
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 18px 25px;
+            border: none;
+            outline: none;
+            font-size: 1.1rem;
+            background: transparent;
+            color: var(--light);
+        }
+        
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .search-box button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .search-box button:hover {
+            background: var(--primary-dark);
+        }
+        
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .filter-btn:hover::before {
+            left: 100%;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Cards Container */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            perspective: 1000px;
+        }
+        
+        /* Card Styles */
+        .card {
+            background: linear-gradient(145deg, rgba(26, 26, 46, 0.8), rgba(19, 19, 36, 0.8));
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: transform 0.5s, box-shadow 0.5s;
+            position: relative;
+            transform-style: preserve-3d;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 87, 34, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .card:hover {
+            transform: translateY(-15px) rotateX(5deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .card-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s;
+        }
+        
+        .card:hover .card-image img {
+            transform: scale(1.15);
+        }
+        
+        .card-type {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card-content {
+            padding: 25px;
+            position: relative;
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--light);
+            font-weight: 700;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-attributes {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .attribute {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .attribute-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 5px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .attribute-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .progress-container {
+            margin-bottom: 20px;
+        }
+        
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .progress-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+        }
+        
+        .progress-value {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .progress {
+            height: 100%;
+            border-radius: 5px;
+            position: relative;
+            transition: width 1.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        
+        .progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shine 2s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .attack-progress {
+            background: linear-gradient(90deg, #ff5722, #ff9800);
+        }
+        
+        .defense-progress {
+            background: linear-gradient(90deg, #2196f3, #03a9f4);
+        }
+        
+        .card-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            flex: 1;
+            margin: 0 5px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .stat:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--light);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 70px;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 30px;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .card {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .cards-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.8rem;
+            }
+            
+            .cards-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .filters {
+                gap: 10px;
+            }
+            
+            .filter-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 80%;
+                margin-bottom: 10px;
+            }
+            
+            .logo {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 
-  <<!-- Core AMP -->
-  <script async src="https://cdn.ampproject.org/v0.js"></script>
-  <!-- amp-list & mustache template -->
-  <script async custom-element="amp-list"
-          src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
-  <script async custom-template="amp-mustache"
-          src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
-
-  <style amp-custom>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #f0f0f5;
-      padding: 20px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
-      gap: 16px;
-    }
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-    .card-header {
-      background: linear-gradient(135deg,#ffb238,#ff6b6b);
-      position: relative;
-      padding: 16px;
-    }
-    .card-header::after {
-      content: '';
-      position: absolute;
-      top: -40%; left: -40%;
-      width: 180%; height: 180%;
-      background: radial-gradient(circle,#fff3 10%,transparent 70%);
-      animation: spin 8s linear infinite;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    .card-img {
-      display: block;
-      margin: 0 auto;
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-      border: 4px solid #fff;
-      object-fit: cover;
-      position: relative;
-      z-index: 1;
-    }
-    .card-body {
-      padding: 16px;
-      text-align: center;
-      flex: 1;
-    }
-    .card-body h3 {
-      margin: 8px 0;
-      font-size: 1.1rem;
-      color: #2e2e3e;
-    }
-    .stats {
-      text-align: left;
-      margin-top: 12px;
-    }
-    .stat {
-      margin-bottom: 10px;
-    }
-    .stat-header {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #2e2e3e;
-      margin-bottom: 4px;
-    }
-    .bar {
-      height: 8px;
-      background: #eee;
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .fill {
-      width: 0;
-      height: 100%;
-      transition: width 1s ease-out;
-    }
-    .atk { background: #ffb238; }
-    .def { background: #ff6b6b; }
-    .card-footer {
-      display: flex;
-      gap: 8px;
-      padding: 12px;
-    }
-    .btn {
-      flex: 1;
-      padding: 8px;
-      font-size: 0.85rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .info {
-      background: #f5f5f5;
-      color: #2e2e3e;
-    }
-    .select {
-      background: #ff6b6b;
-      color: #fff;
-    }
-  </style>
 </head>
 <body>
-
-  <amp-list
-    width="auto"
-    height="800"
-    layout="fixed-height"
-    src="cards.json"
-    class="grid"
-    items="."
-  >
-    <template type="amp-mustache">
-      <div class="card">
-        <div class="card-header">
-          <amp-img
-            src="{{img}}"
-            width="96"
-            height="96"
-            layout="fixed"
-            class="card-img"
-          ></amp-img>
+    <div class="container">
+        <header>
+            <h1>Kartu Hero Mobile Legends</h1>
+            <link rel="stylesheet" href="style.css">
+            <p class="subtitle">Koleksi hero-hero terkuat dari Mobile Legends</p>
+        <div class="container"></div>
+          </header>
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" placeholder="Cari hero favorit Anda...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
         </div>
-        <div class="card-body">
-          <h3>{{name}}</h3>
-          <div class="stats">
-            <div class="stat">
-              <div class="stat-header">
-                <span>Attack</span><span>{{attack}}%</span>
+      
+        
+        <div class="cards-container" id="cards-container">
+            <!-- Kartu Hero akan ditambahkan di sini -->
+        </div>
+    </div>
+    <script>
+  fetch('./cards.json')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Gagal mengambil data: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+      const container = document.getElementById('cards-container');
+      
+      data.forEach(hero => {
+        const cardElement = document.createElement('div');
+        cardElement.className = 'card';
+        cardElement.innerHTML = `
+          <div class="card-image">
+            <img src="${hero.img}" alt="${hero.name}">
+            <div class="card-type">${hero.type}</div>
+          </div>
+          <div class="card-content">
+            <div class="card-title">${hero.name}</div>
+            <div class="card-attributes">
+              <div class="attribute">
+                <div class="attribute-value">${hero.attack}</div>
+                <div class="attribute-label">Attack</div>
               </div>
-              <div class="bar">
-                <div class="fill atk" style="width: {{attack}}%;"></div>
+              <div class="attribute">
+                <div class="attribute-value">${hero.defense}</div>
+                <div class="attribute-label">Defense</div>
               </div>
             </div>
-            <div class="stat">
-              <div class="stat-header">
-                <span>Defense</span><span>{{defense}}%</span>
-              </div>
-              <div class="bar">
-                <div class="fill def" style="width: {{defense}}%;"></div>
-              </div>
+            <div class="progress-bar">
+              <div class="progress attack-progress" style="width:${hero.attack}%;"></div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress defense-progress" style="width:${hero.defense}%;"></div>
             </div>
           </div>
-        </div>
-        <div class="card-footer">
-          <button class="btn info">
-            <i class="fas fa-info-circle"></i>
-          </button>
-          <button class="btn select">
-            <i class="fas fa-user-plus"></i>
-          </button>
-        </div>
-      </div>
-    </template>
-  </amp-list>
+        `;
+        
+        container.appendChild(cardElement);
+        setTimeout(() => {
+            cardElement.querySelector('.attack-progress').style.width = hero.attack + '%';
+            cardElement.querySelector('.defense-progress').style.width = hero.defense + '%';
+          }, 200);
 
-  <!-- Inisialisasi animate stat bar setelah render -->
-  <script amp-custom>
-    document.addEventListener('amp:load-end', () => {
-      const fills = document.querySelectorAll('.fill');
-      fills.forEach(el => {
-        // width sudah di-set inline oleh mustache
-        // tapi AMP membutuhkan reflow khusus
-        el.style.transition = 'width 1s ease-out';
+
       });
-    });
-  </script>
+    })
+    .catch(error => console.error('Error loading cards:', error));
+</script>
+    
+    <footer>
+        <p>© 2025 Kartu Hero Mobile Legends.</p>
+    </footer>
+
+    
+
+</body>
+</html>
+
+
