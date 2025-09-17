@@ -6,7 +6,7 @@
     <meta name="description" content="VIV88Web: Solusi digitalisasi sistem untuk bisnis. Tingkatkan efisiensi dan raih kesuksesan di era digital."/>
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://kayitojigolo-ai.github.io">
-    <title>VIV88Web - Solusi Digital untuk Bisnis Modern</title>
+    <title>Website Inovatif & Modern</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Variabel CSS */
@@ -34,33 +34,30 @@
 
         /* Header & Navigation */
         header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0); /* 0 = sepenuhnya transparan */
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        padding: 7px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s ease;
+}
+
 
         header.scrolled {
             padding: 10px 5%;
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
 
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
-        }
-
-        .logo a {
-            text-decoration: none;
             color: var(--primary);
+            display: flex;
+            align-items: center;
         }
 
         .logo span {
@@ -123,20 +120,33 @@
 
         /* Hero Section */
         .hero {
+            position: relative;
+            overflow: hidden;
             height: 100vh;
             display: flex;
             align-items: center;
-            padding: 0 5%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%236c63ff" fill-opacity="0.1" d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
-            background-size: contain;
+            padding: 0 5% 0 10%;
+            background: none; /* Hapus background SVG jika ingin full video */
+        }
+        .hero-bg-video {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: 0;
+            opacity: 0.35; /* Bisa diatur sesuai kebutuhan */
         }
         
         .hero-content {
+            position: relative;
+            z-index: 2;
             max-width: 600px;
-            padding-top: 80px;
-            margin: 0 auto;
-            text-align: center;
+            padding-top: 0px;
+            margin-left: 20; 
         }
+
+
 
         .hero h1 {
             font-size: 3.5rem;
@@ -163,7 +173,6 @@
             display: flex;
             gap: 15px;
             justify-content: center;
-            flex-wrap: wrap;
         }
         
         .profile {
@@ -171,10 +180,11 @@
             height: 150px;      
             border-radius: 50%; 
             object-fit: cover;  
-            margin: 0 auto 20px;
+            margin: 50px auto 20px; /* 50px = jarak dari atas */
             display: block;
             border: 4px solid var(--primary);
         }
+
 
         .secondary-button {
             background: transparent;
@@ -440,28 +450,6 @@
             font-size: 0.9rem;
         }
 
-        /* Hamburger Menu (Mobile) */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: space-around;
-            width: 30px;
-            height: 25px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            z-index: 10;
-        }
-
-        .menu-toggle span {
-            width: 100%;
-            height: 3px;
-            background: var(--primary);
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
-
         /* Responsive Design */
         @media (max-width: 992px) {
             .hero h1 {
@@ -474,37 +462,8 @@
                 padding: 15px 5%;
             }
             
-            .menu-toggle {
-                display: flex;
-            }
-            
             nav {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 70%;
-                height: 100vh;
-                background: white;
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-                transition: right 0.3s ease;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                z-index: 999;
-            }
-            
-            nav.active {
-                right: 0;
-            }
-            
-            nav ul {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav ul li {
-                margin: 15px 0;
+                display: none;
             }
             
             .hero {
@@ -567,21 +526,15 @@
 <body>
     <!-- Header & Navigation -->
     <header id="header">
-        <div class="logo">
-            <a href="/">VIV88<span>Web</span></a>
-        </div>
-        
-        <button class="menu-toggle" aria-label="Toggle navigation">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        
-        <nav id="nav">
+       <div class="logo">
+        <a href="/">VIV88<span>Web</span>
+        </a>
+    </div>
+        <nav>
             <ul>
                 <li><a href="/">Beranda</a></li>
                 <li><a href="fitur/">Fitur</a></li>
-                <li><a href="https://www.instagram.com/kayitojigolo/" target="_blank">Layanan</a></li>
+                <a href="https://www.instagram.com/kayitojigolo/" target="_blank">Layanan</a>
                 <li><a href="artikel1.csv">Portofolio</a></li>
             </ul>
         </nav>
@@ -590,9 +543,13 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <video autoplay muted loop playsinline class="hero-bg-video">
+            <source src="https://v3.tiktokcdn.com/f991fea7b52b0a60879ded3ae9e26fff/68cbc747/video/tos/maliva/tos-maliva-ve-0068c801-us/ogL4vABYlGngOiI0zSxLhQkCoILWAwxEGT9fi0/?a=1180&bti=bGR1fG8xN3dmKTVAczo6NkBtK2JebWFxOmQ0LnAjMTQzYA%3D%3D&ch=0&cr=0&dr=0&er=0&lr=all&net=0&cd=0%7C0%7C0%7C0&cv=1&br=1288&bt=644&cs=0&ds=6&ft=~jVQ7zRbhWH6B.3SLFLo0PD1&mime_type=video_mp4&qs=11&rc=O2ZoNWkzZmdlOTozPGkzZEBpamttZnc5cmV4dTMzNzczM0AxXzAuMmIwXzAxYGIuXzBiYSNmNjM2MmRrLzBgLS1kMTZzcw%3D%3D&vvpl=1&l=202509171646478BC422DAE25422049BAC&btag=e00090000&cc=6" type="video/mp4">
+            Browser Anda tidak mendukung video.
+        </video>
         <div class="hero-content">
             <img src="me.jpg" alt="VIV88" class="profile">
-            <h1 class="animated">Tingkatkan <span>Pengalaman Digital</span> Bisnis Anda</h1>
+            <h1 class="animated">Tingkatkan <span>Pengalaman Digital VIV88</span> CHECK FITUR VERSI MOBILE</h1>
             <p class="animated delay-1">Kami menghadirkan desain web modern dan fitur canggih untuk membantu bisnis Anda tumbuh di era digital.</p>
             <div class="hero-buttons animated delay-2">
                 <button class="cta-button">Jelajahi Layanan</button>
@@ -605,7 +562,7 @@
     <section class="features">
         <h2 class="section-title">Fitur Unggulan VIV88</h2>
         <p class="section-subtitle">Temukan berbagai fitur inovatif yang akan membawa website Anda ke level berikutnya</p>
-        
+            <a href="https://jigolokayitolun.xyz/" target="_blank" rel="noopener noreferrer">NARASI RAKYAT DIGITAL</a>
         <div class="features-grid">
             <div class="feature-card animated">
                 <div class="feature-icon">
@@ -646,34 +603,34 @@
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="author-details">
-                        <h4>Ahmad Rizki</h4>
-                        <p>CEO TechSolution</p>
+                        <h4>Joko Widodo</h4>
+                        <p>CEO, Perusahaan X</p>
                     </div>
                 </div>
             </div>
             
             <div class="testimonial-card animated delay-1">
-                <p class="testimonial-text">"Pelayanan yang sangat memuaskan dan responsif. Tim developer selalu siap membantu ketika ada kendala teknis."</p>
+                <p class="testimonial-text">"Pelayanan yang diberikan sangat memuaskan, responsif, dan hasil akhirnya luar biasa. Sangat direkomendasikan!"</p>
                 <div class="testimonial-author">
                     <div class="author-avatar">
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="author-details">
-                        <h4>Sarah Wijaya</h4>
-                        <p>Pemilik Boutique</p>
+                        <h4>Ahmad Dhani</h4>
+                        <p>CTO, Perusahaan Y</p>
                     </div>
                 </div>
             </div>
             
             <div class="testimonial-card animated delay-2">
-                <p class="testimonial-text">"Desain website yang dibuat sangat menarik dan fungsional. Conversion rate bisnis saya meningkat signifikan."</p>
+                <p class="testimonial-text">"Saya sangat terbantu dengan adanya layanan ini. Website saya kini terlihat jauh lebih profesional dan menarik."</p>
                 <div class="testimonial-author">
                     <div class="author-avatar">
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="author-details">
-                        <h4>Budi Santoso</h4>
-                        <p>Direktur Marketing</p>
+                        <h4>Rina Suryani</h4>
+                        <p>Marketing, Perusahaan Z</p>
                     </div>
                 </div>
             </div>
@@ -682,10 +639,10 @@
 
     <!-- CTA Section -->
     <section class="cta-section">
-        <div class="cta-content">
+        <div class="cta-content animated">
             <h2>Siap Meningkatkan Bisnis Anda?</h2>
-            <p>Mulai transformasi digital bisnis Anda hari ini dan rasakan perbedaannya</p>
-            <button class="cta-button">Konsultasi Gratis</button>
+            <p>Gabung bersama kami dan rasakan transformasi digital yang sesungguhnya. Tim ahli kami siap membantu Anda setiap langkah.</p>
+            <button class="cta-button">Hubungi Kami Sekarang</button>
         </div>
     </section>
 
@@ -693,54 +650,54 @@
     <footer>
         <div class="footer-content">
             <div class="footer-column">
-                <h3>Tentang VIV88Web</h3>
-                <p>Kami menyediakan solusi digital inovatif untuk membantu bisnis Anda tumbuh dan berkembang di era digital.</p>
+                <h3>Tentang Kami</h3>
+                <p>Kami adalah tim profesional yang berdedikasi untuk membantu bisnis Anda tumbuh melalui solusi digital inovatif.</p>
                 <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
-            
+
             <div class="footer-column">
                 <h3>Link Cepat</h3>
                 <ul class="footer-links">
                     <li><a href="/">Beranda</a></li>
                     <li><a href="fitur/">Fitur</a></li>
-                    <li><a href="#">Layanan</a></li>
-                    <li><a href="#">Portofolio</a></li>
-                    <li><a href="#">Kontak</a></li>
+                    <li><a href="artikel1.csv">Portofolio</a></li>
+                    <li><a href="https://www.instagram.com/kayitojigolo/" target="_blank">Layanan</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-column">
-                <h3>Layanan Kami</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Web Development</a></li>
-                    <li><a href="#">UI/UX Design</a></li>
-                    <li><a href="#">Digital Marketing</a></li>
-                    <li><a href="#">SEO Optimization</a></li>
-                    <li><a href="#">Maintenance</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-column">
-                <h3>Kontak</h3>
-                <p><i class="fas fa-map-marker-alt"></i> Jl. Digital No. 88, Jakarta</p>
-                <p><i class="fas fa-phone"></i> +62 812-3456-7890</p>
-                <p><i class="fas fa-envelope"></i> info@viv88web.com</p>
-            </div>
+                <h3>Kontak Kami</h3>
+                <p>Email: info@viv88web.com</p>
+                <p>Telepon: +62 812-3456-7890</p>
+                <p>Alamat: Jl. Contoh No.123, Jakarta, Indonesia</p>
+            </div }
         </div>
-        
+
         <div class="copyright">
-            <p>&copy; 2023 VIV88Web. All rights reserved.</p>
+            &copy; 2023 VIV88Web. All rights reserved.
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script>
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
         // Header scroll effect
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
@@ -748,24 +705,34 @@
                 header.classList.remove('scrolled');
             }
         });
-        
-        // Mobile menu toggle
-        const menuToggle = document.querySelector('.menu-toggle');
-        const nav = document.getElementById('nav');
-        
-        menuToggle.addEventListener('click', function() {
-            nav.classList.toggle('active');
-            menuToggle.classList.toggle('active');
-        });
-        
-        // Close menu when clicking on a link
-        const navLinks = document.querySelectorAll('nav ul li a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                nav.classList.remove('active');
-                menuToggle.classList.remove('active');
-            });
-        });
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
