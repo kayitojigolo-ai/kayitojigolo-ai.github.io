@@ -1,0 +1,374 @@
+import pygame
+import random
+import math
+import sys
+from pygame import mixer
+
+# Inisialisasi Pygame
+pygame.init()
+mixer.init()
+
+# Ukuran layar
+SCREEN_WIDTH = 1024
+SCREEN_HEIGHT = 768
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("Gates of Olympus")
+
+# Warna
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+GOLD = (255, 215, 0)
+PURPLE = (128, 0, 128)
+DARK_BLUE = (25, 25, 112)
+
+# Font
+title_font = pygame.font.SysFont('arial', 64, bold=True)
+normal_font = pygame.font.SysFont('arial', 32)
+small_font = pygame.font.SysFont('arial', 24)
+
+# Load gambar
+def load_images():
+    symbols = [
+        pygame.transform.scale(pygame.image.load('zeus.png'), (120, 120)) if pygame.image.get_extended() else pygame.Surface((120, 120)),
+        pygame.transform.scale(pygame.image.load('hades.png'), (120, 120)) if pygame.image.get_extended() else pygame.Surface((120, 120)),
+        pygame.transform.scale(pygame.image.load('poseidon.png'), (120, 120)) if pygame.image.get_extended() else pygame.Surface((120, 120)),
+        pygame.transform.scale(pygame.image.load('athena.png'), (120, 120)) if pygame.image.get_extended() else pygame.Surface((120, 120)),
+        pygame.transform.scale(pygame.image.load('hermes.png'), (120, 120)) if pygame.image.get_extended() else pygame.Surface((120, 120)),
+        pygame.transform.scale(pygame.image.load('aphrodite.png'), (120, 120)) if pygame.image.get_extended() else pygame.Surface((120, 120))
+    ]
+    
+    # Jika gambar tidak ada, buat placeholder
+    for i in range(len(symbols)):
+        if not pygame.image.get_extended():
+            symbols[i].fill((random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
+            text = small_font.render(f"Symbol {i+1}", True, WHITE)
+            symbols[i].blit(text, (10, 50))
+    
+    background_img = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+    background_img.fill(DARK_BLUE)
+    
+    return symbols, background_img
+
+# Load suara
+def load_sounds():
+    sounds = {
+        'spin': mixer.Sound('spin.wav') if pygame.mixer.get_init() else None,
+        'win': mixer.Sound('win.wav') if pygame.mixer.get_init() else None,
+        'click': mixer.Sound('click.wav') if pygame.mixer.get_init() else None
+    }
+    return sounds
+
+# Class untuk simbol yang berputar
+class Symbol:
+    def __init__(self, x, y, images):
+        self.x = x
+        self.y = y
+        self.images = images
+        self.current_image = random.randint(0, len(images) - 1)
+        self.spinning = False
+        self.spin_speed = 0
+        self.target_y = y
+        self.current_y = y - 600  # Mulai dari atas layar
+
+    def draw(self, surface):
+        surface.blit(self.images[self.current_image], (self.x, self.current_y))
+
+    def start_spin(self, speed):
+        self.spinning = True
+        self.spin_speed = speed
+
+    def update(self):
+        if self.spinning:
+            self.current_y += self.spin_speed
+            if self.current_y >= self.target_y + 600:
+                self.current_y = self.target_y - 600
+            
+            # Secara acak ubah gambar selama berputar
+            if random.random() < 0.1:
+                self.current_image = random.randint(0, len(self.images) - 1)
+
+    def stop(self):
+        self.spinning = False
+        self.current_y = self.target_y
+        self.current_image = random.randint(0, len(self.images) - 1)
+
+# Class untuk mesin slot
+class SlotMachine:
+    def __init__(self, x, y, rows, cols, symbol_images):
+        self.x = x
+        self.y = y
+        self.rows = rows
+        self.cols = cols
+        self.symbols = []
+        self.spinning = False
+        self.symbol_images = symbol_images
+        
+        # Buat grid simbol
+        for col in range(cols):
+            column = []
+            for row in range(rows):
+                symbol_x = x + col * 130
+                symbol_y = y + row * 130
+                column.append(Symbol(symbol_x, symbol_y, symbol_images))
+            self.symbols.append(column)
+        
+        # Nilai setiap simbol
+        self.symbol_values = [100, 50, 40, 30, 20, 10]
+        
+    def draw(self, surface):
+        # Gambar latar belakang mesin slot
+        pygame.draw.rect(surface, PURPLE, (self.x - 20, self.y - 20, 
+                                          self.cols * 130 + 40, 
+                                          self.rows * 130 + 40), 0, 10)
+        pygame.draw.rect(surface, GOLD, (self.x - 20, self.y - 20, 
+                                        self.cols * 130 + 40, 
+                                        self.rows * 130 + 40), 5, 10)
+        
+        # Gambar semua simbol
+        for col in self.symbols:
+            for symbol in col:
+                symbol.draw(surface)
+    
+    def start_spin(self):
+        if not self.spinning:
+            self.spinning = True
+            speed = random.randint(20, 30)
+            for col in self.symbols:
+                for symbol in col:
+                    symbol.start_spin(speed)
+            return True
+        return False
+    
+    def update(self):
+        all_stopped = True
+        for col in self.symbols:
+            for symbol in col:
+                symbol.update()
+                if symbol.spinning:
+                    all_stopped = False
+        
+        # Jika semua simbol berhenti, set spinning ke False
+        if all_stopped:
+            self.spinning = False
+        
+        return all_stopped
+    
+    def stop(self):
+        for col in self.symbols:
+            for symbol in col:
+                symbol.stop()
+        self.spinning = False
+    
+    def check_win(self):
+        # Periksa garis horizontal untuk kemenangan
+        win_amount = 0
+        winning_lines = []
+        
+        for row in range(self.rows):
+            first_symbol = self.symbols[0][row].current_image
+            is_win_line = True
+            
+            for col in range(1, self.cols):
+                if self.symbols[col][row].current_image != first_symbol:
+                    is_win_line = False
+                    break
+            
+            if is_win_line:
+                win_amount += self.symbol_values[first_symbol]
+                winning_lines.append(('horizontal', row))
+        
+        # Periksa garis diagonal (kiri atas ke kanan bawah)
+        for start_row in range(self.rows - 2):
+            for start_col in range(self.cols - 2):
+                first_symbol = self.symbols[start_col][start_row].current_image
+                is_win_line = True
+                
+                for i in range(1, 3):
+                    if (start_col + i >= self.cols or 
+                        start_row + i >= self.rows or 
+                        self.symbols[start_col + i][start_row + i].current_image != first_symbol):
+                        is_win_line = False
+                        break
+                
+                if is_win_line:
+                    win_amount += self.symbol_values[first_symbol] * 2  # Bonus untuk diagonal
+                    winning_lines.append(('diagonal', start_col, start_row))
+        
+        return win_amount, winning_lines
+
+# Class untuk tombol
+class Button:
+    def __init__(self, x, y, width, height, text, color, hover_color):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.text = text
+        self.color = color
+        self.hover_color = hover_color
+        self.is_hovered = False
+        
+    def draw(self, surface):
+        color = self.hover_color if self.is_hovered else self.color
+        pygame.draw.rect(surface, color, self.rect, 0, 10)
+        pygame.draw.rect(surface, GOLD, self.rect, 3, 10)
+        
+        text_surface = normal_font.render(self.text, True, WHITE)
+        text_rect = text_surface.get_rect(center=self.rect.center)
+        surface.blit(text_surface, text_rect)
+        
+    def check_hover(self, pos):
+        self.is_hovered = self.rect.collidepoint(pos)
+        
+    def is_clicked(self, pos, event):
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            return self.rect.collidepoint(pos)
+        return False
+
+# Efek partikel untuk kemenangan
+class Particle:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.size = random.randint(2, 6)
+        self.color = random.choice([GOLD, (255, 215, 0), (255, 165, 0), (255, 255, 0)])
+        self.speed_x = random.uniform(-3, 3)
+        self.speed_y = random.uniform(-3, 3)
+        self.lifetime = random.randint(20, 40)
+        
+    def update(self):
+        self.x += self.speed_x
+        self.y += self.speed_y
+        self.lifetime -= 1
+        self.size = max(0, self.size - 0.1)
+        
+    def draw(self, surface):
+        pygame.draw.circle(surface, self.color, (int(self.x), int(self.y)), int(self.size))
+
+# Fungsi utama
+def main():
+    # Load assets
+    symbol_images, background_img = load_images()
+    sounds = load_sounds()
+    
+    # Buat mesin slot
+    slot_machine = SlotMachine(SCREEN_WIDTH // 2 - 200, 200, 3, 5, symbol_images)
+    
+    # Buat tombol
+    spin_button = Button(SCREEN_WIDTH // 2 - 100, 650, 200, 60, "SPIN", PURPLE, (100, 0, 100))
+    
+    # Variabel game
+    balance = 1000
+    bet_amount = 10
+    win_amount = 0
+    particles = []
+    clock = pygame.time.Clock()
+    spinning = False
+    show_win = False
+    win_time = 0
+    
+    # Game loop
+    running = True
+    while running:
+        mouse_pos = pygame.mouse.get_pos()
+        
+        # Event handling
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            
+            if spin_button.is_clicked(mouse_pos, event) and not spinning and balance >= bet_amount:
+                if sounds['click']:
+                    sounds['click'].play()
+                if slot_machine.start_spin():
+                    balance -= bet_amount
+                    spinning = True
+                    show_win = False
+                    if sounds['spin']:
+                        sounds['spin'].play()
+            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE and not spinning and balance >= bet_amount:
+                    if slot_machine.start_spin():
+                        balance -= bet_amount
+                        spinning = True
+                        show_win = False
+                        if sounds['spin']:
+                            sounds['spin'].play()
+                
+                if event.key == pygame.K_UP:
+                    bet_amount = min(100, bet_amount + 5)
+                
+                if event.key == pygame.K_DOWN:
+                    bet_amount = max(5, bet_amount - 5)
+        
+        # Update
+        if spinning:
+            if slot_machine.update():
+                spinning = False
+                win_amount, winning_lines = slot_machine.check_win()
+                if win_amount > 0:
+                    balance += win_amount
+                    show_win = True
+                    win_time = pygame.time.get_ticks()
+                    if sounds['win']:
+                        sounds['win'].play()
+                    
+                    # Buat partikel untuk efek kemenangan
+                    for _ in range(100):
+                        particles.append(Particle(
+                            random.randint(0, SCREEN_WIDTH),
+                            random.randint(0, SCREEN_HEIGHT)
+                        ))
+        
+        # Update partikel
+        for particle in particles[:]:
+            particle.update()
+            if particle.lifetime <= 0:
+                particles.remove(particle)
+        
+        # Hapus efek kemenangan setelah 3 detik
+        if show_win and pygame.time.get_ticks() - win_time > 3000:
+            show_win = False
+        
+        # Update tombol
+        spin_button.check_hover(mouse_pos)
+        
+        # Draw
+        screen.blit(background_img, (0, 0))
+        
+        # Gambar judul
+        title_text = title_font.render("GATES OF OLYMPUS", True, GOLD)
+        screen.blit(title_text, (SCREEN_WIDTH // 2 - title_text.get_width() // 2, 50))
+        
+        # Gambar mesin slot
+        slot_machine.draw(screen)
+        
+        # Gambar tombol
+        spin_button.draw(screen)
+        
+        # Gambar UI informasi
+        balance_text = normal_font.render(f"Balance: ${balance}", True, WHITE)
+        screen.blit(balance_text, (50, 650))
+        
+        bet_text = normal_font.render(f"Bet: ${bet_amount}", True, WHITE)
+        screen.blit(bet_text, (50, 700))
+        
+        # Gambar teks kemenangan jika ada
+        if show_win:
+            win_text = title_font.render(f"YOU WIN ${win_amount}!", True, GOLD)
+            screen.blit(win_text, (SCREEN_WIDTH // 2 - win_text.get_width() // 2, 100))
+        
+        # Gambar partikel
+        for particle in particles:
+            particle.draw(screen)
+        
+        # Gambar instruksi
+        instructions = small_font.render("Press SPACE to spin, UP/DOWN to change bet", True, WHITE)
+        screen.blit(instructions, (SCREEN_WIDTH // 2 - instructions.get_width() // 2, 720))
+        
+        pygame.display.flip()
+        clock.tick(60)
+
+    pygame.quit()
+    sys.exit()
+
+if __name__ == "__main__":
+    main()
